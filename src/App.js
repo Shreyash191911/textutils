@@ -2,11 +2,11 @@
 import logo from "./logo.svg";
 import "./App.css";
 import Navbar from "./Components/Navbar";
-// import About from "./Components/About";
+import About from "./Components/About";
 import { useState } from "react";
 import TextForm from "./Components/TextForm";
 import Alert from "./Components/Alert";
-// import { BrowserRouter as Router, Switch, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
 function App() {
   const [Mode, setMode] = useState(`light`);
@@ -62,23 +62,27 @@ function App() {
 
   return (
     <>
-      {/* <Router> */}
-      <Navbar
-        title="Textutilsss"
-        abouttxt="About Textutilsss"
-        Mode={Mode}
-        ToggleMode={ToggleMode}
-        appearance={appearance}
-        ToggleAppearance={ToggleAppearance}
-      />
-      <Alert alert={alert} />
-      <div className="container my-3">
-        <TextForm
-          showAlert={showAlert}
-          heading="Enter the text to analyze Below"
+      <Router>
+        <Navbar
+          title="Textutilsss"
+          abouttxt="About Textutilsss"
           Mode={Mode}
+          ToggleMode={ToggleMode}
+          appearance={appearance}
+          ToggleAppearance={ToggleAppearance}
         />
-      </div>    
+        <Alert alert={alert} />
+        <div className="container my-3">
+          <Routes>
+            <Route exact path="/about" element={<About />} />  
+            <Route exact path="/" element={<TextForm
+                showAlert={showAlert}
+                heading="Enter the text to analyze Below"
+                Mode={Mode}
+              />} />
+          </Routes> 
+        </div>
+      </Router>
     </>
   );
 }
